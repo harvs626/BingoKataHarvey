@@ -8,7 +8,7 @@ class BingoCardCaller {
         // Generate a bingo queue that is random and shuffled
         // generating this ahead of time will take N space, but
         // keep the operation of calling the next number in O(1)
-        this.bingoQueue = _.shuffle(_.range(1, MAX_BINGO_NUMBER+1))
+        this.bingoStack = _.shuffle(_.range(1, MAX_BINGO_NUMBER+1))
     }
 
     getCalledNumbers() {
@@ -16,11 +16,11 @@ class BingoCardCaller {
     }
 
     callNext() {
-        if (this.bingoQueue.length === 0) {
+        if (this.bingoStack.length === 0) {
             console.log("No more numbers")
             return null
         }
-        const nextNumber = this.bingoQueue.pop()
+        const nextNumber = this.bingoStack.pop()
         this.calledNumbers.push(nextNumber);
         return nextNumber;
     }
