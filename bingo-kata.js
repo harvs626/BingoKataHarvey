@@ -71,10 +71,46 @@ function startGame() {
                 })
                 break;
             case "C":
-                // todo
+                console.log("which card did you want to check?")
+                console.log(`enter a number between 1 and ${numCards} inclusive.`)
+                const cardIndex = Number(prompt());
+                if (isNaN(cardIndex) || cardIndex <= 0 || cardIndex > cards.length) {
+                    console.log("invalid card. Try again");
+                } else {
+                    const card = cards[cardIndex-1];
+                    card.printCard()
+                    console.log(
+                        "We called numbers: ", 
+                        bingoCaller.getCalledNumbers()
+                    );
+                    if (card.isBingo()) {
+                        console.log("This card is a bingo!");
+                    }
+                    else {
+                        console.log(
+                            "card has these numbers marked: ",
+                            [...card.markedNumbers]
+                        )
+                        console.log(
+                            "card still needs these numbers: ",
+                            _.filter([...card.numbers], num => !card.markedNumbers.has(num))
+                        )
+                    }
+                }
                 break;
             case "B":
-                // todo
+                let count = 0;
+                _.each(cards, (card, index) => {
+                    if(card.isBingo()) {
+                        console.log(`Card ${index+1} is a bingo!`)
+                        count += 1;
+                    }
+                })
+                if (count) {
+                    console.log(`We have ${count} cards that have a bingo`)
+                } else {
+                    console.log("No Bingos!")
+                }
                 break;
         }
     }
