@@ -41,7 +41,6 @@ function startGame() {
     let action = null;
     while(action !== "X") {
         action = _.toUpper(prompt("what action do you want to perform? "))
-        console.log("action : ", action)
 
         if (!_.includes(_.keys(actionMap), action)) {
             console.log("The action is not acceptable. Try again!");
