@@ -48,5 +48,6 @@ class BingoNumberCaller {
 }
 
 module.exports = {
-    BingoNumberCaller
+    BingoNumberCaller,
+    MAX_BINGO_NUMBER
 }

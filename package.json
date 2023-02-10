@@ -1,6 +1,11 @@
 {
   "dependencies": {
+    "jest": "^29.4.2",
     "lodash": "^4.17.21",
     "prompt-sync": "^4.2.0"
+  },
+  "scripts": {
+    "test": "jest"
   }
+  
 }
