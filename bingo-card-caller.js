@@ -1,7 +1,7 @@
 const _ = require("lodash")
 const MAX_BINGO_NUMBER = 75
 
-class BingoCardCaller {
+class BingoNumberCaller {
     constructor() {
         // initialize a called numbers array of none.
         this.calledNumbers = [];
@@ -27,5 +27,5 @@ class BingoCardCaller {
 }
 
 module.exports = {
-    BingoCardCaller
+    BingoNumberCaller
 }

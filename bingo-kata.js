@@ -1,14 +1,15 @@
 const prompt = require('prompt-sync')();
 const _ = require('lodash');
 const { BingoCard } = require("./bingo-card-generator");
+const { BingoNumberCaller } = require("./bingo-card-caller");
 
 function startGame() {
     console.log("Welcome to a game of Bingo Kata")
     console.log("Let's start by generating a bunch of bingo cards")
     let numCards = null;
     while(!numCards) {
-        numCards = Number(prompt("How many cards do you want to build?"))
-        if (isNaN(numCards) || !_.isPositive(numCards)) {
+        numCards = Number(prompt("How many cards do you want to build? "))
+        if (isNaN(numCards) || numCards <= 0) {
             console.log("Please enter a valid positive number")
             numCards = null;
         }
@@ -26,28 +27,48 @@ function startGame() {
     }
 
     const displayActionMap = () => {
-        console.log("Please choose one of these actions:");
+        console.log("Please choose one of these actions: ");
         _.each(actionMap, (val, key) => {
             console.log(`Enter ${key} to ${val}`)
         })
 
     }
 
+    // initialize a bingo caller
+    const bingoCaller = new BingoNumberCaller();
+
     displayActionMap();
     let action = null;
-    while(!action === "X") {
-        let action = _.toUpper(prompt("what action do you want to perform?"))
+    while(action !== "X") {
+        action = _.toUpper(prompt("what action do you want to perform? "))
+        console.log("action : ", action)
+
         if (!_.includes(_.keys(actionMap), action)) {
-            console.log("The action is not acceptable");
+            console.log("The action is not acceptable. Try again!");
             displayActionMap();
             continue;
         }
+
+        // add a helper function to print all cards
+        const printCards = () => _.each(cards, (card, index) => {
+            console.log("Card ", index+1);
+            card.printCard();
+        })
         switch(action) {
             case "P":
-                // todo
+                printCards();
                 break;
             case "N":
-                // todo
+                // extract the number
+                const number = bingoCaller.callNext();
+                console.log("Next number is: ", number)
+                // mark the number on the corresponding bingo cards
+                _.each(cards, (card, index) => {
+                    card.markNumber(number);
+                    if(card.isBingo()) {
+                        console.log(`Card ${index+1} calls bingo!`)
+                    }
+                })
                 break;
             case "C":
                 // todo
@@ -58,3 +79,5 @@ function startGame() {
         }
     }
 }
+
+startGame();
