@@ -2,7 +2,17 @@
 const _ = require("lodash")
 const CARDSIZE = 5*5;
 
+/****
+ * The Bingo card class will represent a bingo card entity.
+ * This will have state and keep track of which numbers have been called.
+ */
 class BingoCard {
+
+    /****
+     * This constructor will initialize the numbers generated
+     * We generate random numbers and this should be O(N).
+     * where N is the number of squares we have in the card.
+     */
     constructor() {
         // initialize an array of 5 arrays (1 per column)
 
@@ -22,6 +32,14 @@ class BingoCard {
         this.markedNumbers = new Set();
     }
 
+    /***
+     * This function will mark a number and keep track if the card
+     * has this number.
+     * 
+     * input: num (Number): the number to check if we have it.
+     * 
+     * returns: a boolean value, True if we have that number, false if not.
+     */
     markNumber(num) {
         if(this.numbers.has(num)) {
             this.markedNumbers.add(num);
@@ -30,10 +48,19 @@ class BingoCard {
         return false;
     }
 
+    /****
+     * Function will check to see if we have a bingo (all numbers marked)
+     * 
+     * returns: A boolean value. True if we have all numbers marked. False if not.
+     */
     isBingo() {
         return this.markedNumbers.size === CARDSIZE;
     }
 
+    /***
+     * Function to stringify the given card. This function will
+     * format the card and separate them by the different letters.
+     */
     toString() {
 
         const markedNumbers = this.markedNumbers;
@@ -49,6 +76,9 @@ class BingoCard {
         return printLines.join("\n");
     }
 
+    /***
+     * Function to print the given card to the console.
+     */
     printCard() {
         console.log(this.toString());
     }
