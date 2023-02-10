@@ -33,6 +33,25 @@ class BingoCard {
     isBingo() {
         return this.markedNumbers.size === CARDSIZE;
     }
+
+    toString() {
+
+        const markedNumbers = this.markedNumbers;
+        const numbers = [...this.numbers];
+
+        const printLines = ["B", "I", "N", "G", "O"].map( (col, index) => {
+            const lowIndex = index*5;
+            const columnNumbers = numbers.slice(lowIndex, lowIndex+5);
+            const formatColumnNumbers = columnNumbers.map( num => markedNumbers.has(num) ? `-${num}-\t` : `${num}\t`);
+            return `${col}:\t  ${formatColumnNumbers.join(" ")}`
+        })
+
+        return printLines.join("\n");
+    }
+
+    printCard() {
+        console.log(this.toString());
+    }
 }
 
 
